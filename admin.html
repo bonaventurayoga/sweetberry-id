@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Admin - Sweety Berry</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="admin">
+
+  <div id="login" class="login">
+
+    <div class="login-card">
+
+      <div class="brand center">
+        🍓 Sweety Berry
+      </div>
+
+      <h1>Login</h1>
+
+      <form id="loginForm">
+
+      <label>
+        Email
+        <input
+          id="user"
+          type="email"
+          autocomplete="email"
+          required
+        >
+      </label>
+
+      <label>
+        Password
+        <input
+          id="pass"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+      </label>
+
+      <button class="btn" type="submit">
+        Masuk
+      </button>
+
+      <p id="err" class="error"></p>
+
+    </form>
+
+      <a href="index.html">
+        ← Kembali ke katalog
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div id="app" class="hidden">
+
+    <header>
+      <div class="wrap nav">
+
+        <b>🍓 Sweety Berry — Admin</b>
+
+        <div>
+          <a
+            class="btn secondary"
+            href="index.html"
+          >
+            Lihat Katalog
+          </a>
+
+          <button
+            class="btn danger"
+            id="logout"
+            type="button"
+          >
+            Keluar
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+
+    <main class="wrap admin-main">
+
+      <h1>Kelola Katalog</h1>
+
+
+      <div class="stats">
+
+        <div>
+          <small>Total Produk</small>
+          <strong id="total">0</strong>
+        </div>
+
+        <div>
+          <small>Produk Aktif</small>
+          <strong id="active">0</strong>
+        </div>
+
+        <div>
+          <small>Kategori</small>
+          <strong id="categoryCount">0</strong>
+        </div>
+
+      </div>
+
+
+      <div class="tabs">
+
+        <button
+          class="tab active"
+          data-tab="productTab"
+          type="button"
+        >
+          Produk
+        </button>
+
+        <button
+          class="tab"
+          data-tab="settingTab"
+          type="button"
+        >
+          Pengaturan Toko
+        </button>
+
+      </div>
+
+
+      <section id="productTab">
+
+        <div class="panel">
+
+          <h2 id="formTitle">
+            Tambah Produk
+          </h2>
+
+          <form
+            id="productForm"
+            class="form"
+          >
+
+            <input
+              type="hidden"
+              id="id"
+            >
+
+
+            <label>
+              Nama Produk
+              <input
+                id="name"
+                type="text"
+                placeholder="Contoh: Strawberry Chocolate"
+                required
+              >
+            </label>
+
+
+            <label>
+              Harga Small
+              <input
+                id="priceSmall"
+                type="number"
+                min="0"
+                placeholder="Contoh: 25000"
+              >
+            </label>
+
+
+            <label>
+              Harga Regular
+              <input
+                id="priceRegular"
+                type="number"
+                min="0"
+                placeholder="Contoh: 35000"
+              >
+            </label>
+
+
+            <label>
+              Harga Small + Dubai Chewy
+              <input
+                id="priceSmallDubai"
+                type="number"
+                min="0"
+                placeholder="Contoh: 50000"
+              >
+            </label>
+
+
+            <label>
+              Harga Regular + Dubai Chewy
+              <input
+                id="priceRegularDubai"
+                type="number"
+                min="0"
+                placeholder="Contoh: 60000"
+              >
+            </label>
+
+
+            <label>
+              Kategori
+
+              <select
+                id="category"
+                required
+              >
+                <option value="Grape">
+                  Grape
+                </option>
+
+                <option value="Strawberry">
+                  Strawberry
+                </option>
+
+                <option value="Banana">
+                  Banana
+                </option>
+
+                <option value="Mix Fruit">
+                  Mix Fruit
+                </option>
+              </select>
+
+            </label>
+
+
+            <label>
+              Foto Produk
+              <input
+                id="image"
+                type="file"
+                accept="image/*"
+              >
+            </label>
+
+
+            <label class="full">
+              Deskripsi
+              <textarea
+                id="description"
+                rows="3"
+                placeholder="Tuliskan deskripsi produk..."
+              ></textarea>
+            </label>
+
+
+            <label class="check full">
+
+              <input
+                id="available"
+                type="checkbox"
+                checked
+              >
+
+              Produk tersedia
+
+            </label>
+
+
+            <div
+              id="preview"
+              class="preview hidden"
+            ></div>
+
+
+            <div class="full">
+
+              <button
+                class="btn"
+                id="save"
+                type="submit"
+              >
+                Tambah Produk
+              </button>
+
+              <button
+                class="btn secondary hidden"
+                id="cancel"
+                type="button"
+              >
+                Batal
+              </button>
+
+            </div>
+
+          </form>
+
+          <p class="hint">
+            Data katalog tersimpan secara online di Supabase.
+            Foto maksimal 2 MB.
+          </p>
+
+        </div>
+
+
+        <div class="panel">
+
+          <h2>Daftar Produk</h2>
+
+          <div id="list"></div>
+
+        </div>
+
+      </section>
+
+
+      <section
+        id="settingTab"
+        class="hidden"
+      >
+
+        <div class="panel">
+
+          <h2>Pengaturan Toko</h2>
+
+          <form
+            id="settingsForm"
+            class="form"
+          >
+
+            <label>
+              Nama Toko
+              <input
+                id="sName"
+                type="text"
+                placeholder="Sweety Berry"
+              >
+            </label>
+
+
+            <label>
+              Nomor WhatsApp
+
+              <input
+                id="sWa"
+                type="tel"
+                inputmode="numeric"
+                placeholder="6287845809969"
+              >
+
+              <small class="hint">
+                Gunakan format 628xxx tanpa tanda +
+                atau 0 di depan.
+                Nomor ini akan digunakan oleh tombol
+                <b>Chat WhatsApp</b>
+                di halaman pelanggan.
+              </small>
+            </label>
+
+
+            <label>
+              Instagram
+              <input
+                id="sIg"
+                type="text"
+                placeholder="@sweety.berry"
+              >
+            </label>
+
+
+            <label>
+              Jam Buka
+              <input
+                id="sHours"
+                type="text"
+                placeholder="Setiap hari, 10.00–21.00"
+              >
+            </label>
+
+
+            <label class="full">
+              Tagline
+              <input
+                id="sTagline"
+                type="text"
+                placeholder="Fresh • Sweet • Homemade"
+              >
+            </label>
+
+
+            <label class="full">
+              Deskripsi Toko
+              <textarea
+                id="sDesc"
+                rows="3"
+                placeholder="Deskripsi tentang Sweety Berry..."
+              ></textarea>
+            </label>
+
+
+            <label class="full">
+              Alamat
+              <textarea
+                id="sAddress"
+                rows="2"
+                placeholder="Alamat toko..."
+              ></textarea>
+            </label>
+
+
+            <button
+              class="btn full"
+              type="submit"
+            >
+              Simpan Pengaturan
+            </button>
+
+          </form>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="admin.js"></script>
+
+</body>
+
+</html>
