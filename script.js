@@ -576,6 +576,50 @@ function render() {
 
 
   // ------------------------------------
+  // FOTO & DAFTAR BAHAN (dari admin)
+  // ------------------------------------
+
+  [
+    ["heroImg", settings.hero_image],
+    ["aboutImg1", settings.about_image_1],
+    ["aboutImg2", settings.about_image_2],
+    ["aboutImg3", settings.about_image_3]
+  ].forEach(([id, url]) => {
+
+    const image =
+      document.getElementById(id);
+
+    if (image && url && image.getAttribute("src") !== url) {
+
+      image.src = url;
+    }
+  });
+
+
+  const aboutList =
+    document.getElementById(
+      "aboutList"
+    );
+
+  if (aboutList && settings.ingredients) {
+
+    const items =
+      String(settings.ingredients)
+        .split("\n")
+        .map(item => item.trim())
+        .filter(Boolean);
+
+    if (items.length) {
+
+      aboutList.innerHTML =
+        items
+          .map(item => `<li>${esc(item)}</li>`)
+          .join("");
+    }
+  }
+
+
+  // ------------------------------------
   // CATEGORY
   // ------------------------------------
 
@@ -958,7 +1002,11 @@ function render() {
           // --------------------------------
 
           return `
-            <article class="card">
+            <article class="card ${
+              product.available
+                ? ""
+                : "is-off"
+            }">
 
               <div class="photo">
 
@@ -985,14 +1033,11 @@ function render() {
                 }
 
                 <span
-                  class="
-                    badge
-                    ${
-                      product.available
-                        ? ""
-                        : "off"
-                    }
-                  "
+                  class="badge ${
+                    product.available
+                      ? ""
+                      : "off"
+                  }"
                 >
                   ${
                     product.available
@@ -1032,28 +1077,32 @@ function render() {
                     ? `
                       ${sizeHTML}
 
-                      ${priceHTML}
+                      <div class="buy">
+                        ${priceHTML}
 
-                      ${dubaiHTML}
+                        ${dubaiHTML}
+                      </div>
                     `
                     : `
-                      ${
-                        selectedPrice
-                          ? `
-                            <div class="price">
-                              ${rp(
-                                selectedPrice
-                              )}
-                            </div>
-                          `
-                          : ""
-                      }
+                      <div class="buy">
+                        ${
+                          selectedPrice
+                            ? `
+                              <div class="price">
+                                ${rp(
+                                  selectedPrice
+                                )}
+                              </div>
+                            `
+                            : ""
+                        }
 
-                      <span
-                        class="btn secondary"
-                      >
-                        Tidak Tersedia
-                      </span>
+                        <span
+                          class="btn secondary"
+                        >
+                          Tidak Tersedia
+                        </span>
+                      </div>
                     `
                 }
 
@@ -1138,6 +1187,8 @@ async function init() {
 
 
   render();
+
+  document.body.classList.add("ready");
 }
 
 

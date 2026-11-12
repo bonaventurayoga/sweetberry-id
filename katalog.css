@@ -1,0 +1,945 @@
+/* =====================================================
+   KATALOG.CSS
+   Tampilan halaman pelanggan (index.html).
+   Halaman admin tetap memakai style.css.
+===================================================== */
+
+:root {
+  --cocoa: #25130f;
+  --cocoa-2: #381c15;
+  --cocoa-line: rgba(255, 233, 214, 0.14);
+
+  --berry: #cf2a44;
+  --berry-deep: #a51c33;
+
+  --gold: #f6c637;
+  --pistachio: #9db26b;
+
+  --blush: #faeeea;
+  --paper: #fffaf7;
+  --ink: #2b1712;
+  --muted: #7a6058;
+  --line: #ecd8d1;
+
+  --on-dark: #fbeee3;
+  --on-dark-muted: #cdb3a6;
+
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  margin: 0;
+}
+
+.wrap {
+  width: min(1160px, 92%);
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 20;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--gold);
+  color: var(--cocoa);
+  font-weight: 700;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font: 700 15px/1 var(--sans);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--cocoa);
+}
+
+.btn-gold:hover {
+  background: #ffd75e;
+}
+
+.btn-line {
+  border-color: rgba(251, 238, 227, 0.5);
+  color: var(--on-dark);
+}
+
+.btn-line:hover {
+  border-color: var(--on-dark);
+  background: rgba(251, 238, 227, 0.08);
+}
+
+.btn.secondary {
+  background: #efe3de;
+  color: var(--muted);
+  cursor: default;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(37, 19, 15, 0.9);
+  border-bottom: 1px solid var(--cocoa-line);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand img {
+  display: block;
+  width: 112px;
+  height: auto;
+}
+
+.nav nav {
+  display: flex;
+  gap: 34px;
+}
+
+.nav nav a {
+  color: var(--on-dark-muted);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 0;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav nav a:hover {
+  color: var(--on-dark);
+  border-color: var(--gold);
+}
+
+.nav-cta {
+  padding: 10px 22px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 88px 0 104px;
+  color: var(--on-dark);
+  background:
+    radial-gradient(60% 70% at 85% 30%, rgba(207, 42, 68, 0.32), transparent 70%),
+    radial-gradient(40% 50% at 0% 100%, rgba(157, 178, 107, 0.14), transparent 70%),
+    var(--cocoa);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 56px;
+}
+
+.hero-place {
+  margin: 0 0 22px;
+  display: inline-block;
+  padding: 7px 16px;
+  border: 1px solid var(--cocoa-line);
+  border-radius: 999px;
+  color: var(--on-dark-muted);
+  font-size: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 6.6vw, 5.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  color: var(--on-dark);
+}
+
+.hero h1 span {
+  display: block;
+}
+
+.hero h1 span:last-child {
+  font-style: italic;
+}
+
+.hero-desc {
+  max-width: 460px;
+  margin: 28px 0 36px;
+  color: var(--on-dark-muted);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-visual {
+  position: relative;
+  isolation: isolate;
+  justify-self: center;
+  width: min(100%, 420px);
+}
+
+.arch {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 999px 999px 28px 28px;
+  overflow: hidden;
+  background: var(--cocoa-2);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+}
+
+.arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  inset: -14px 14px 14px -14px;
+  border: 1.5px solid rgba(246, 198, 55, 0.45);
+  border-radius: 999px 999px 32px 32px;
+  z-index: -1;
+}
+
+.hours-card {
+  position: absolute;
+  left: -28px;
+  bottom: 36px;
+  max-width: 230px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 18px 36px -12px rgba(0, 0, 0, 0.5);
+}
+
+.hours-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.hours-card strong {
+  display: block;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+/* Satu momen animasi saat halaman dibuka */
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1 span {
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero h1 span:last-child {
+    animation-delay: 0.14s;
+  }
+
+  .arch {
+    animation: arch-in 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+
+@keyframes arch-in {
+  from {
+    opacity: 0;
+    clip-path: inset(30% 0 0 0 round 999px 999px 28px 28px);
+  }
+}
+
+
+/* =====================================================
+   KATALOG
+===================================================== */
+
+.catalog {
+  padding: 96px 0 104px;
+  background: var(--blush);
+}
+
+.catalog-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.catalog h2,
+.about-text h2,
+.contact-head h2 {
+  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  line-height: 1.02;
+}
+
+.lead {
+  margin: 12px 0 0;
+  max-width: 420px;
+  color: var(--muted);
+}
+
+.catalog-head input {
+  width: 300px;
+  max-width: 100%;
+  padding: 13px 16px 13px 46px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a6058' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E")
+    no-repeat 16px center / 20px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+}
+
+.catalog-head input:focus {
+  outline: none;
+  border-color: var(--berry);
+  box-shadow: 0 0 0 3px rgba(207, 42, 68, 0.15);
+}
+
+/* Kategori sebagai tab bergaris bawah */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 30px;
+  margin: 36px 0 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.chip {
+  margin-bottom: -1px;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 2.5px solid transparent;
+  background: none;
+  color: var(--muted);
+  font: 600 16px/1 var(--sans);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.chip:hover {
+  color: var(--ink);
+}
+
+.chip.active {
+  color: var(--berry-deep);
+  border-bottom-color: var(--berry);
+}
+
+
+/* =====================================================
+   PRODUK
+===================================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 36px 28px;
+}
+
+.grid > p {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card .photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #f3dcd6;
+}
+
+.card .photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.card:hover .photo img {
+  transform: scale(1.04);
+}
+
+.card .photo-placeholder {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-size: 64px;
+}
+
+.card .badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.card .badge.off {
+  background: var(--cocoa);
+  color: var(--on-dark);
+}
+
+.card.is-off .photo img {
+  filter: grayscale(0.85);
+  opacity: 0.75;
+}
+
+.card .body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px 4px 0;
+}
+
+.card .body small {
+  color: var(--berry-deep);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.card .body h3 {
+  margin: 4px 0 8px;
+  font-size: 2rem;
+  line-height: 1.08;
+}
+
+.card .body p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Pilih ukuran */
+.size-label {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.size-options {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 4px;
+  border-radius: 999px;
+  background: #f3e2dc;
+}
+
+.size-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 20px;
+  background: transparent;
+  color: var(--muted);
+  font: 700 14px/1 var(--sans);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.size-btn:hover {
+  color: var(--ink);
+}
+
+.size-btn.active {
+  background: var(--cocoa);
+  color: var(--on-dark);
+}
+
+/* Harga */
+.buy {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.price {
+  font-family: var(--serif);
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--berry-deep);
+}
+
+.addon-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed #d9bdb3;
+}
+
+.addon-price-title {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.addon-price .price {
+  font-size: 1.5rem;
+}
+
+.buy .btn {
+  margin-top: 14px;
+}
+
+.empty {
+  margin: 40px 0 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+
+/* =====================================================
+   TENTANG
+===================================================== */
+
+.about-section {
+  padding: 104px 0;
+  background: var(--paper);
+}
+
+.about {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 72px;
+}
+
+/* Kolase tiga foto, tingginya dikunci supaya teks tidak terdorong */
+.collage {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+  height: 480px;
+}
+
+.collage img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  display: block;
+}
+
+.c-main {
+  grid-row: 1 / 3;
+  border-radius: 999px 999px 24px 24px;
+}
+
+.c-top {
+  border-radius: 24px 24px 24px 80px;
+}
+
+.c-bottom {
+  border-radius: 80px 24px 24px 24px;
+}
+
+.about-text p {
+  margin: 20px 0 32px;
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.about-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-list li {
+  padding: 8px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   KONTAK
+===================================================== */
+
+.contact-section {
+  padding: 96px 0 88px;
+  color: var(--on-dark);
+  background:
+    radial-gradient(55% 80% at 50% 0%, rgba(207, 42, 68, 0.28), transparent 70%),
+    var(--cocoa);
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-head .lead {
+  margin: 14px auto 0;
+  max-width: 440px;
+  color: var(--on-dark-muted);
+  font-size: 18px;
+}
+
+.contact-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin: 52px 0 40px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 34px 20px 30px;
+  border: 1px solid var(--cocoa-line);
+  border-radius: 28px;
+  background: rgba(251, 238, 227, 0.04);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.tile:hover {
+  background: rgba(251, 238, 227, 0.09);
+  transform: translateY(-4px);
+}
+
+.tile-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: rgba(251, 238, 227, 0.08);
+}
+
+.tile-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+}
+
+.tile-icon svg.social-icon {
+  fill: none;
+}
+
+.tile strong {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.tile-note {
+  color: var(--on-dark-muted);
+  font-size: 15px;
+}
+
+.tile.whatsapp .tile-icon { color: #4fd37d; }
+.tile.instagram .tile-icon { color: #ff7aa8; }
+.tile.maps .tile-icon { color: var(--gold); }
+
+.tile.whatsapp:hover { border-color: #4fd37d; }
+.tile.instagram:hover { border-color: #ff7aa8; }
+.tile.maps:hover { border-color: var(--gold); }
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 560px;
+  margin: 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--cocoa-line);
+  color: var(--on-dark-muted);
+  font-size: 15px;
+}
+
+.contact-info b {
+  color: var(--on-dark);
+}
+
+.contact-info a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-info a:hover {
+  color: var(--gold);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+  padding: 28px 0;
+  background: #1a0d0a;
+  color: var(--on-dark-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.footer p {
+  margin: 4px 0;
+}
+
+.footer strong {
+  color: var(--on-dark);
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 960px) {
+  .hero {
+    padding: 64px 0 80px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .hero-visual {
+    width: min(100%, 360px);
+    margin-left: 28px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .collage {
+    height: 420px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 640px) {
+  .nav nav {
+    display: none;
+  }
+
+  .nav {
+    min-height: 64px;
+  }
+
+  .brand img {
+    width: 96px;
+  }
+
+  .hero {
+    padding: 48px 0 64px;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+  }
+
+  .hours-card {
+    left: -12px;
+    bottom: 24px;
+  }
+
+  .hero-visual {
+    margin-left: 12px;
+  }
+
+  .catalog,
+  .about-section {
+    padding: 64px 0;
+  }
+
+  .catalog-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .catalog-head input {
+    width: 100%;
+  }
+
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 26px;
+    scrollbar-width: none;
+  }
+
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip {
+    white-space: nowrap;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .card .photo {
+    aspect-ratio: 1 / 1;
+  }
+
+  .collage {
+    height: 340px;
+  }
+
+  .contact-section {
+    padding: 64px 0;
+  }
+
+  .contact-tiles {
+    grid-template-columns: 1fr;
+    margin: 36px 0 32px;
+  }
+
+  .tile {
+    padding: 26px 20px;
+  }
+}
+
+
+/* Foto dari admin: tampil setelah data siap, supaya foto bawaan tidak berkedip */
+.arch img,
+.collage img {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+body.ready .arch img,
+body.ready .collage img {
+  opacity: 1;
+}

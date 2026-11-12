@@ -8,6 +8,11 @@
   <title>Admin - Sweety Berry</title>
 
   <link rel="stylesheet" href="style.css">
+  <style>
+    .site-block { padding-top: 10px; border-top: 1px solid #eadde2; }
+    .site-block strong { display: block; font-size: 1.05rem; margin-bottom: 4px; }
+    .site-prev { display: block; width: 100%; max-width: 220px; height: 130px; margin-top: 10px; object-fit: cover; border-radius: 10px; border: 1px solid #eadde2; background: #fff5f8; }
+  </style>
 </head>
 
 <body class="admin">
@@ -409,6 +414,45 @@
               ></textarea>
             </label>
 
+
+            <div class="full site-block">
+              <strong>Tampilan Halaman Pelanggan</strong>
+              <small class="hint">
+                Pilih foto baru lalu klik Simpan Pengaturan.
+                Kosongkan jika ingin tetap memakai foto yang sekarang.
+                Format JPG, PNG, atau WebP, maksimal 5 MB.
+              </small>
+            </div>
+
+            <label>
+              Foto Hero (bagian atas)
+              <input id="sHeroFile" type="file" accept="image/jpeg,image/png,image/webp">
+              <img id="sHeroPrev" class="site-prev" alt="Pratinjau foto hero">
+            </label>
+
+            <label>
+              Foto Tentang 1 (besar, kiri)
+              <input id="sAbout1File" type="file" accept="image/jpeg,image/png,image/webp">
+              <img id="sAbout1Prev" class="site-prev" alt="Pratinjau foto Tentang 1">
+            </label>
+
+            <label>
+              Foto Tentang 2 (kanan atas)
+              <input id="sAbout2File" type="file" accept="image/jpeg,image/png,image/webp">
+              <img id="sAbout2Prev" class="site-prev" alt="Pratinjau foto Tentang 2">
+            </label>
+
+            <label>
+              Foto Tentang 3 (kanan bawah)
+              <input id="sAbout3File" type="file" accept="image/jpeg,image/png,image/webp">
+              <img id="sAbout3Prev" class="site-prev" alt="Pratinjau foto Tentang 3">
+            </label>
+
+            <label class="full">
+              Daftar Bahan (bagian Tentang)
+              <textarea id="sIngredients" rows="6" placeholder="Strawberry&#10;Anggur&#10;Pisang"></textarea>
+              <small class="hint">Tulis satu bahan per baris.</small>
+            </label>
 
             <button
               class="btn full"

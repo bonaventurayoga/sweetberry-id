@@ -1329,6 +1329,85 @@ function render() {
 
 
 // ===============================
+// FOTO & BAHAN HALAMAN PELANGGAN
+// ===============================
+const SITE_IMAGE_FIELDS = [
+  { key: "hero_image",    file: "sHeroFile",   prev: "sHeroPrev",   fallback: "images/hero-strawberry.jpg" },
+  { key: "about_image_1", file: "sAbout1File", prev: "sAbout1Prev", fallback: "images/about-grape.jpg" },
+  { key: "about_image_2", file: "sAbout2File", prev: "sAbout2Prev", fallback: "images/hero-strawberry.jpg" },
+  { key: "about_image_3", file: "sAbout3File", prev: "sAbout3Prev", fallback: "images/contact-banana.jpg" }
+];
+
+const DEFAULT_INGREDIENTS =
+  "Strawberry\nAnggur\nPisang\nSaus cokelat\nKunafa\nPistachio";
+
+function fillSiteFields() {
+  SITE_IMAGE_FIELDS.forEach(field => {
+    const input = document.getElementById(field.file);
+    const preview = document.getElementById(field.prev);
+    if (input) input.value = "";
+    if (preview) preview.src = settings[field.key] || field.fallback;
+  });
+  const ingredients = document.getElementById("sIngredients");
+  if (ingredients) {
+    ingredients.value = settings.ingredients || DEFAULT_INGREDIENTS;
+  }
+}
+
+SITE_IMAGE_FIELDS.forEach(field => {
+  const input = document.getElementById(field.file);
+  if (!input) return;
+  input.addEventListener("change", () => {
+    const chosen = input.files && input.files[0];
+    const preview = document.getElementById(field.prev);
+    if (chosen && preview) preview.src = URL.createObjectURL(chosen);
+  });
+});
+
+async function uploadSiteImage(imageFile) {
+  const allowed = ["image/jpeg", "image/png", "image/webp"];
+  if (!allowed.includes(imageFile.type)) {
+    throw new Error("Format gambar harus JPG, PNG, atau WebP.");
+  }
+  if (imageFile.size > 5 * 1024 * 1024) {
+    throw new Error("Ukuran gambar maksimal 5 MB.");
+  }
+  const ext = imageFile.name.split(".").pop().toLowerCase();
+  const filePath = `site/${crypto.randomUUID()}.${ext}`;
+  const { error } = await db.storage
+    .from("product-images")
+    .upload(filePath, imageFile, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: imageFile.type
+    });
+  if (error) {
+    console.error("Gagal upload gambar:", error);
+    throw new Error("Gagal mengupload gambar.");
+  }
+  return db.storage.from("product-images").getPublicUrl(filePath).data.publicUrl;
+}
+
+// Hanya kolom yang benar-benar diubah yang dikirim,
+// sehingga simpan pengaturan biasa tidak terpengaruh.
+async function collectSiteChanges() {
+  const changes = {};
+  for (const field of SITE_IMAGE_FIELDS) {
+    const input = document.getElementById(field.file);
+    const chosen = input && input.files && input.files[0];
+    if (chosen) changes[field.key] = await uploadSiteImage(chosen);
+  }
+  const ingredients = document.getElementById("sIngredients");
+  if (ingredients) {
+    const value = ingredients.value
+      .split("\n").map(line => line.trim()).filter(Boolean).join("\n");
+    const current = (settings.ingredients || DEFAULT_INGREDIENTS);
+    if (value !== current) changes.ingredients = value;
+  }
+  return changes;
+}
+
+// ===============================
 // SETTINGS
 // ===============================
 
@@ -1368,6 +1447,8 @@ function fillSettings() {
     "sAddress"
   ).value =
     settings.address || "";
+
+  fillSiteFields();
 }
 
 
@@ -1387,6 +1468,13 @@ settingsForm.onsubmit = async function (event) {
     description: document.getElementById("sDesc").value.trim(),
     address: document.getElementById("sAddress").value.trim()
   };
+
+  try {
+    Object.assign(settingsData, await collectSiteChanges());
+  } catch (siteError) {
+    alert(siteError.message || "Gagal memproses foto.");
+    return;
+  }
 
   console.log("Data settings:", settingsData);
 
@@ -1434,6 +1522,7 @@ settingsForm.onsubmit = async function (event) {
     alert("Pengaturan toko berhasil disimpan.");
 
     await loadSettings();
+    fillSettings();
 
   } catch (error) {
     console.error("Error settings:", error);
